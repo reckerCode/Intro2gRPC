@@ -1,0 +1,38 @@
+//The first links tell the compiler what syntax is used in the file.
+// By default the compiler generates all the JAVA code in a single Java file.
+syntax = "proto3";
+//The second line overrides this setting, and everything
+//will be generated in individual files.
+option java_multiple_files = true;
+//Finally we specify the package we want to use
+//for our generated Java classes.
+package io.grpc.intro.gRPC;
+
+//This defines the request payload. Here each
+//attribute that goes into the message is
+//defined along with its type
+//A unique number needs to be assigned to each
+//attribute, called as the tag.
+//This tag is used by the protocol buffer to
+//represent the attribute instead of using the
+//attribute name
+message HelloRequest{
+  string firstName = 1;
+  string lastName = 2;
+}
+
+message HelloResponse {
+  string greeting = 1;
+}
+//Defining the service content
+//For out HelloService we define a hello() operation
+//The hello() operation accept a unary request and
+//returns a unary response. gRPC also supports
+//streaming by prefixing stream keyword to the
+//request and response
+service HelloService{
+  rpc hello(HelloRequest) returns (HelloResponse);
+}
+
+
+
